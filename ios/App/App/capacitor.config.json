@@ -1,0 +1,13 @@
+{
+	"appId": "com.germanteacher.app",
+	"appName": "German Teacher",
+	"webDir": "dist",
+	"server": {
+		"androidScheme": "https"
+	},
+	"packageClassList": [
+		"TextToSpeechPlugin",
+		"AppPlugin",
+		"CAPBrowserPlugin"
+	]
+}

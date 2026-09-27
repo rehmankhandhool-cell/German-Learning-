@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if the authenticated user is the document owner
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // 1. User Profiles - strictly private to each student
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // 5. User Progress (Subcollection) - strictly private to this student
+      match /progress/{lessonId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // 6. Daily Goals (Subcollection) - strictly private to this student
+      match /dailyGoals/{date} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // 7. Daily Usage (Subcollection) - strictly private to this student
+      match /dailyUsage/{date} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // 2. Lessons - Read-only curriculum available to all learners
+    match /lessons/{lessonId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 3. Vocabulary - Read-only vocabulary library from A1 to B2
+    match /vocabulary/{vocabularyId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 4. Quizzes - Read-only practice exercises
+    match /quizzes/{quizId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

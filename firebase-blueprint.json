@@ -1,0 +1,242 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with German learning level, streak, daily goal and total XP",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique identifier of the user matching auth uid"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the student"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the student"
+        },
+        "germanLevel": {
+          "type": "string",
+          "enum": ["A1", "A2", "B1", "B2"],
+          "description": "Current German learning proficiency level"
+        },
+        "learningStreak": {
+          "type": "number",
+          "description": "Current consecutive days learning streak"
+        },
+        "dailyGoal": {
+          "type": "number",
+          "description": "Target daily study goal in lessons or minutes"
+        },
+        "totalXp": {
+          "type": "number",
+          "description": "Cumulative experience points earned"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO timestamp when the user account was created"
+        }
+      },
+      "required": ["userId", "name", "email", "germanLevel", "learningStreak", "dailyGoal", "totalXp", "createdDate"]
+    },
+    "Lesson": {
+      "title": "Lesson",
+      "description": "Curriculum lesson from A1 to B2 German",
+      "type": "object",
+      "properties": {
+        "lessonId": {
+          "type": "string",
+          "description": "Unique identifier of the lesson"
+        },
+        "title": {
+          "type": "string",
+          "description": "Lesson title in English and German"
+        },
+        "germanLevel": {
+          "type": "string",
+          "enum": ["A1", "A2", "B1", "B2"],
+          "description": "CEFR proficiency level required for this lesson"
+        },
+        "category": {
+          "type": "string",
+          "description": "Subject category (e.g. Greetings, Housing, Work, Travel)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short summary of what this lesson teaches"
+        },
+        "lessonContent": {
+          "type": "string",
+          "description": "Full pedagogical content, dialogue, or grammar breakdown"
+        },
+        "lessonOrder": {
+          "type": "number",
+          "description": "Sequential display order within the level"
+        }
+      },
+      "required": ["lessonId", "title", "germanLevel", "category", "description", "lessonContent", "lessonOrder"]
+    },
+    "Vocabulary": {
+      "title": "Vocabulary",
+      "description": "German vocabulary entry with pronunciation and example sentence",
+      "type": "object",
+      "properties": {
+        "vocabularyId": {
+          "type": "string",
+          "description": "Unique identifier of the vocabulary word"
+        },
+        "germanWord": {
+          "type": "string",
+          "description": "German word with grammatical article if applicable"
+        },
+        "englishMeaning": {
+          "type": "string",
+          "description": "English translation and meaning"
+        },
+        "exampleSentence": {
+          "type": "string",
+          "description": "Example German sentence demonstrating practical usage"
+        },
+        "germanLevel": {
+          "type": "string",
+          "enum": ["A1", "A2", "B1", "B2"],
+          "description": "CEFR proficiency level (A1, A2, B1, B2)"
+        },
+        "category": {
+          "type": "string",
+          "description": "Topic category (e.g. Everyday, Housing, Bank, Health, Work, Food)"
+        },
+        "pronunciation": {
+          "type": "string",
+          "description": "Phonetic pronunciation guide"
+        }
+      },
+      "required": ["vocabularyId", "germanWord", "englishMeaning", "exampleSentence", "germanLevel", "category", "pronunciation"]
+    },
+    "Quiz": {
+      "title": "Quiz",
+      "description": "Interactive German practice quiz with questions and correct answers",
+      "type": "object",
+      "properties": {
+        "quizId": {
+          "type": "string",
+          "description": "Unique identifier of the quiz"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the quiz exercise"
+        },
+        "germanLevel": {
+          "type": "string",
+          "enum": ["A1", "A2", "B1", "B2"],
+          "description": "CEFR proficiency level for the quiz"
+        },
+        "questions": {
+          "type": "string",
+          "description": "JSON serialized or structured list of quiz questions with multiple-choice options"
+        },
+        "correctAnswers": {
+          "type": "string",
+          "description": "JSON serialized or structured array of correct answer indices or answers"
+        },
+        "category": {
+          "type": "string",
+          "description": "Quiz topic category (e.g. Articles, Grammar Cases, Vocabulary, Etiquette)"
+        }
+      },
+      "required": ["quizId", "title", "germanLevel", "questions", "correctAnswers", "category"]
+    },
+    "UserProgress": {
+      "title": "UserProgress",
+      "description": "Private learning progress tracking for a specific user and lesson",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "ID of the student user"
+        },
+        "lessonId": {
+          "type": "string",
+          "description": "ID of the lesson being tracked"
+        },
+        "completionStatus": {
+          "type": "string",
+          "enum": ["not_started", "in_progress", "completed"],
+          "description": "Status of lesson completion"
+        },
+        "quizScore": {
+          "type": "number",
+          "description": "Percentage score earned on the lesson quiz"
+        },
+        "vocabularyLearned": {
+          "type": "number",
+          "description": "Count or list of vocabulary items mastered in this lesson"
+        },
+        "xpEarned": {
+          "type": "number",
+          "description": "Experience points earned from this lesson"
+        },
+        "lastActivity": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the user's latest interaction with this lesson"
+        }
+      },
+      "required": ["userId", "lessonId", "completionStatus", "quizScore", "vocabularyLearned", "xpEarned", "lastActivity"]
+    },
+    "DailyGoal": {
+      "title": "DailyGoal",
+      "description": "Private daily learning targets and completion records for a user",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "ID of the student user"
+        },
+        "dailyTarget": {
+          "type": "number",
+          "description": "Daily study target (e.g. lessons or minutes)"
+        },
+        "completedAmount": {
+          "type": "number",
+          "description": "Amount of target achieved today"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date string formatted as YYYY-MM-DD"
+        }
+      },
+      "required": ["userId", "dailyTarget", "completedAmount", "date"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Private user profiles for students"
+    },
+    "/lessons/{lessonId}": {
+      "schema": "Lesson",
+      "description": "Shared educational lessons from A1 to B2"
+    },
+    "/vocabulary/{vocabularyId}": {
+      "schema": "Vocabulary",
+      "description": "Shared vocabulary bank across CEFR levels"
+    },
+    "/quizzes/{quizId}": {
+      "schema": "Quiz",
+      "description": "Shared quizzes and practice drills"
+    },
+    "/users/{userId}/progress/{lessonId}": {
+      "schema": "UserProgress",
+      "description": "Private user progress records for each lesson"
+    },
+    "/users/{userId}/dailyGoals/{date}": {
+      "schema": "DailyGoal",
+      "description": "Private daily goals tracking for each user by date"
+    }
+  }
+}

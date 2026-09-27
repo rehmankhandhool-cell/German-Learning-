@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* Safe area insets for Capacitor WebView on iOS/Android */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  header.sticky {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  footer {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 1.5rem);
+  }
+}
+
+/* Mobile viewport adjustments for safe areas and keyboards */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Touch accessibility and gesture responsiveness on mobile WebViews */
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent inner SVG icons from intercepting touch/pointer events from parent button */
+button svg {
+  pointer-events: none;
+}
+
+/* Ensure minimum touch target size of 44px on interactive controls */
+@media (pointer: coarse) {
+  button, 
+  a, 
+  input[type="button"], 
+  input[type="submit"], 
+  input[type="reset"] {
+    min-height: 44px;
+  }
+}
+
+/* Prevent auto-zooming on inputs in mobile WebViews */
+@media screen and (max-width: 768px) {
+  input, 
+  select, 
+  textarea {
+    font-size: 16px !important;
+  }
+}

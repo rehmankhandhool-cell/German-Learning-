@@ -1,0 +1,7 @@
+{
+  "name": "German Teacher",
+  "description": "Learn practical German for everyday life, work, and studies in Germany with interactive lessons, vocabulary drills, quizzes, and an AI German Teacher.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

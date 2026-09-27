@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Firebase Service Account Credentials & Key Files (Secret Credentials)
+*serviceAccount*.json
+*firebase-admin*.json
+*service-account*.json
+*.pem
+*.key
+

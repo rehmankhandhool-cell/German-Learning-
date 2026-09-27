@@ -1,0 +1,9 @@
+# Robots.txt for German Teacher
+# Domain: https://germanteacher.store/
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://germanteacher.store/sitemap.xml
